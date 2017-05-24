@@ -1104,7 +1104,7 @@
 
 <div class=""content__game_card platform__PS4"" itemscope=""itemscope"" itemtype=""http://schema.org/SoftwareApplication"">
     <link itemprop=""applicationCategory"" href=""https://schema.org/GameApplication""/>
-    <span itemprop=""name"" class=""hidden"">Back to the Future: The Game - 30th Anniversary Edition</span>
+    <span itemprop=""name"" class=""hidden"">Back to the Future: The GamePrice - 30th Anniversary Edition</span>
     
         <div class=""hidden"">
             <div itemprop=""aggregateRating"" itemscope itemtype=""http://schema.org/AggregateRating"">
@@ -1116,12 +1116,12 @@
     <a href=""/region-ua/game/114197/back-to-the-future-the-game-30th-anniversary-edition"" class=""content__game_card__cover"" itemprop=""url"" content=""https://psprices.com/region-ua/game/114197/back-to-the-future-the-game-30th-anniversary-edition"">
         <span class=""content__game_card__new"">NEW</span>
         
-            <img class=""content__game_card__image"" itemprop=""image"" src=""https://apollo2.dl.playstation.net/cdn/EP2026/CUSA02972_00/guT2SiGv5l1mHb8yokGxCD0hnsQCqwlL.png"" content=""https://apollo2.dl.playstation.net/cdn/EP2026/CUSA02972_00/guT2SiGv5l1mHb8yokGxCD0hnsQCqwlL.png"" alt=""Back to the Future: The Game - 30th Anniversary Edition"">
+            <img class=""content__game_card__image"" itemprop=""image"" src=""https://apollo2.dl.playstation.net/cdn/EP2026/CUSA02972_00/guT2SiGv5l1mHb8yokGxCD0hnsQCqwlL.png"" content=""https://apollo2.dl.playstation.net/cdn/EP2026/CUSA02972_00/guT2SiGv5l1mHb8yokGxCD0hnsQCqwlL.png"" alt=""Back to the Future: The GamePrice - 30th Anniversary Edition"">
         
         
         <span class=""content__game_card__description"">
             
-            <span class=""content__game_card__link content__game_card__title"" itemprop=""name"">Back to the Future: The Game - 30th Anniversary Edition</span><br>
+            <span class=""content__game_card__link content__game_card__title"" itemprop=""name"">Back to the Future: The GamePrice - 30th Anniversary Edition</span><br>
             
             
         </span>

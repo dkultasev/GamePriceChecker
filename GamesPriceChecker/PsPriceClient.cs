@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace GamesPriceChecker
 {
-    public class PsPriceClient
+    public class PsPriceClient : IPsPriceClient
     {
         private readonly IWebBrowserOperations _browserOperations;
         private const string BaseUrl = "https://psprices.com/region-ua/discounts?sort=date&platform=PS4";
@@ -17,23 +15,15 @@ namespace GamesPriceChecker
             _browserOperations = browserOperations;
         }
 
-        public List<Game> GetAllGames()
+        public List<GamePrice> GetAllGames()
         {
-            var gamesList = new List<Game>();
+            var gamesList = new List<GamePrice>();
             var page = _browserOperations.GetSourceByUrl(GetUrlByPage(1));
             int pagesCount = GetPageCount(page);
             for (var i = 0; i < pagesCount; i++)
             {
-                try
-                {
-                    var gamesFromPage = GetGamesFromPage(_browserOperations.GetSourceByUrl(GetUrlByPage(i + 1)));
-                    gamesList.AddRange(gamesFromPage);
-                    //gamesList.AddRange(GetGamesFromPage(_browserOperations.GetSourceByUrl(GetUrlByPage(17))));
-                }
-                catch (Exception e)
-                {
-                    int a = 0;
-                }
+                var gamesFromPage = GetGamesFromPage(_browserOperations.GetSourceByUrl(GetUrlByPage(i + 1)));
+                gamesList.AddRange(gamesFromPage);
             }
             return gamesList;
         }
@@ -48,18 +38,18 @@ namespace GamesPriceChecker
             return int.Parse(test.Last().InnerText);
         }
 
-        public List<Game> GetGamesFromPage(string page)
+        public List<GamePrice> GetGamesFromPage(string page)
         {
-            List<Game> games = new List<Game>();
-            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            var games = new List<GamePrice>();
+            var doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(page);
-            var test2 = doc.DocumentNode.SelectNodes("//*[@id=\"pjax-container\"]/div[2]/div/div[*]/div");
-            foreach (var game in test2)
+            var nodes = doc.DocumentNode.SelectNodes("//*[@id=\"pjax-container\"]/div[2]/div/div[*]/div");
+            foreach (var game in nodes)
             {
                 if (game.ChildNodes.Count == 7) continue;
 
                 var i = 0;
-                var newGame = new Game() {Platform = "PS4"};
+                var newGame = new GamePrice() { Platform = "PS4" };
                 foreach (var gameChildNode in game.ChildNodes)
                 {
                     var temp = gameChildNode.InnerText;
@@ -74,7 +64,7 @@ namespace GamesPriceChecker
                         newGame.PsPriceRating = rate[0];
                         newGame.PsPriceRatingQty = (int)rate[1];
 
-                        if ((int)rate[1] == 0) i+=2;
+                        if ((int)rate[1] == 0) i += 2;
                     }
 
                     if (i == 11)
@@ -103,14 +93,14 @@ namespace GamesPriceChecker
                     i++;
                 }
                 games.Add(newGame);
-                
+
             }
             return games;
         }
 
         public DateTime GetDateTimeFromString(string dateString)
         {
-            var temp = dateString.Replace("закончится ","" );
+            var temp = dateString.Replace("закончится ", "");
 
             return Convert.ToDateTime(temp).ToUniversalTime();
         }
@@ -120,7 +110,7 @@ namespace GamesPriceChecker
             var temp = rating.Trim().Split();
             try
             {
-                return new double[2] {double.Parse(temp.First()), double.Parse(temp.Last())};
+                return new double[2] { double.Parse(temp.First()), double.Parse(temp.Last()) };
             }
             catch
             {
@@ -141,7 +131,7 @@ namespace GamesPriceChecker
             if (prices.Contains("nbsp") || prices.Contains("Бесплатно"))
             {
                 double a = 0;
-                temp = prices.Trim().Replace("Бесплатно","0").Replace("UAH", "").Replace(" &rarr;", "").Replace("&nbsp; ", "").Split();
+                temp = prices.Trim().Replace("Бесплатно", "0").Replace("UAH", "").Replace(" &rarr;", "").Replace("&nbsp; ", "").Split();
                 var newList = temp.Where(x => double.TryParse(x, out a)).ToList();
 
                 result[0] = double.Parse(newList[0]);
