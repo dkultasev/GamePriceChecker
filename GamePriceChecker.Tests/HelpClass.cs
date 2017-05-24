@@ -4,7 +4,8 @@
     {
         public static string GetPageSource()
         {
-            return @"<!DOCTYPE html>
+            return @"
+<!DOCTYPE html>
 <html lang=""ru"">
 <head>
     <link rel=""manifest"" href=""/manifest.json"">
@@ -513,7 +514,16 @@
         </div>
         <div class=""col-xs-12"">
             <div class=""row row__user_panel"">
-                <div class=""col-xs-4 col-sm-10 "">
+                <div class=""col-xs-10 col-sm-10 row__user_panel__inner"">
+                    
+                    <span class=""user_panel__links__item user_panel__links__item__user_name"">
+                        <a href=""/region-ua/game/ownerships/"">
+                            <img src=""//www.gravatar.com/avatar/1bd32684ea30be3f013d43ddc5f65da7?s=32&d=identicon"">
+                        </a>
+                    </span>
+                    <span class=""user_panel__links__item"">
+                        <a class=""row__user_panel__user_info_link"" href=""/region-ua/game/subscriptions/"">подписки: 0</a>
+                    </span>
                     
                     
                     <span class=""user_panel__links__item"">
@@ -528,11 +538,15 @@
                     
                     
                 </div>
-                <div class=""col-xs-8 col-sm-2"">
+                <div class=""col-xs-2 col-sm-2"">
                     <ul class=""user_panel__links_r"">
                         
-                            <li class=""user_panel__links__item""><a href=""/region-ua/account/login/""><i class=""fa fa-lock""></i> Вход</a></li>
-                            <li class=""user_panel__links__item""><a href=""/region-ua/account/signup/""><i class=""fa fa-plus""></i> Регистрация</a></li>
+                            <li class=""user_panel__links__item"">
+                                <form id=""account_logout"" method=""POST"" action=""/region-ua/account/logout/"">
+                                    <input type='hidden' name='csrfmiddlewaretoken' value='3TDCZ5737Ty2kdTZ7P2rOcg7t12XMPZs' />
+                                    <a href=""/"" onclick=""document.getElementById('account_logout').submit(); return false;""><i class=""fa fa-power-off""></i><span class=""hidden-xs""> Выход</span></a>
+                                </form>
+                            </li>
                         
                     </ul>
                 </div>
@@ -2485,6 +2499,32 @@
 <script src=""/static/build/vendor.30807a0f1516.js""></script>
 <script src=""/static/build/main.02ee96371e56.js"" async defer></script>
 <script src=""//cdn.jsdelivr.net/eldarion-ajax/0.12.0/eldarion-ajax.min.js""></script>
+
+<script>
+jQuery(function($)
+{
+    OneSignal.push(function()
+    {
+        OneSignal.getUserId().then(function(e)
+        {
+            if (e)
+            {
+                $.getJSON(""/push/token/"" + e, function(e)
+                {
+                    // yeah!
+                });
+            }
+        })
+    });
+    OneSignal.push([""sendTags"", {registered: ""yes""}]);
+    
+    OneSignal.push(function()
+    {
+        OneSignal.syncHashedEmail(""dkultasev@mail.ru"");
+    });
+    
+});
+</script>
 
 
 <script type=""application/ld+json"">

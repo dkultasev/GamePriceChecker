@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Threading;
-using System.Windows.Forms;
 using FluentAssertions;
 using GamesPriceChecker;
 using Moq;
@@ -152,6 +150,12 @@ namespace GamePriceChecker.Tests
         public void Test_GetPagesCount()
         {
             _client.GetPageCount(HelpClass.GetPageSource()).Should().Be(17);
+        }
+
+        [Test]
+        public void Test_AllGamesAreScrappedFromSinglePage()
+        {
+            _client.GetGamesFromPage(HelpClass.GetPageSource()).Count.Should().Be(24);
         }
 
         [Test]
